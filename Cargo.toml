@@ -1,0 +1,13 @@
+[package]
+name = "rust-book"
+version = "0.1.0"
+edition = "2021"
+description = "Learns of the rust book"
+license = "MIT"
+repository = "git"
+readme = "README"
+keywords = ["rust", "rust-book"]
+categories = ["algorithms", "command-line-interface"]
+
+[dependencies]
+rand = "0.8.5"
