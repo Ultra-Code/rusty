@@ -28,3 +28,8 @@ pub fn game() -> io::Result<()> {
     }
     Ok(())
 }
+
+fn start() -> io::Result<()> {
+    game()?;
+    Ok(())
+}
