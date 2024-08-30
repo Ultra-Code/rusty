@@ -2,7 +2,7 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 
-pub fn game() -> io::Result<()> {
+fn game() -> io::Result<()> {
     println!("Guess a number between 1..=100 inclusive");
     let secret_number = rand::thread_rng().gen_range(1..=100);
 
@@ -29,7 +29,10 @@ pub fn game() -> io::Result<()> {
     Ok(())
 }
 
-fn start() -> io::Result<()> {
+/// # Errors
+///
+/// Will return `Err` if there is an error reading a line from stdin
+pub fn start() -> io::Result<()> {
     game()?;
     Ok(())
 }

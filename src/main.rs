@@ -4,10 +4,14 @@
 mod algo;
 mod blocks;
 mod enums;
-mod guessing_game;
 mod structs;
 
 fn main() {
+    algo::use_algos();
+    blocks::use_block();
+    structs::use_struct();
+    enums::use_enum();
+
     let opt = Some(String::from("Hello world"));
 
     match &opt {

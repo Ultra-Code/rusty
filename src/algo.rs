@@ -49,7 +49,7 @@ fn return_a_string(output: &mut String) {
     output.replace_range(.., "Hello world");
 }
 
-fn use_algos() {
+pub fn use_algos() {
     let mut dst = vec![String::from("The"), String::from("word")];
     let src = [String::from("Longest"), String::from("World")];
     add_big_strings(&mut dst, &src);

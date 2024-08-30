@@ -23,3 +23,7 @@ fn blocks() {
     let boxed = Box::new([0; 1_000]);
     let _ = boxed;
 }
+
+pub fn use_block() {
+    blocks();
+}

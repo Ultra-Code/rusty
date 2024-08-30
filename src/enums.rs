@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 #[derive(Debug)]
 pub enum States {
     Alabama,
@@ -12,6 +14,10 @@ pub enum Coin {
 }
 
 impl Coin {
+    const fn new() -> Self {
+        Self::Penny {}
+    }
+
     fn value_in_cents(coin: Self) -> u8 {
         match coin {
             Self::Penny => 1,
@@ -49,6 +55,7 @@ fn if_let() -> i32 {
         val + 1
     }
 }
+
 #[derive(Debug)]
 enum Either {
     Left(usize),
@@ -65,4 +72,12 @@ fn either() {
     };
 
     println!("{x:?} {value}");
+}
+
+pub fn use_enum() {
+    either();
+    if_let();
+    other_match();
+    let coin = Coin::new();
+    let _ = Coin::value_in_cents(coin);
 }
