@@ -10,27 +10,22 @@ pub enum Case {
 #[allow(clippy::needless_pass_by_value)]
 #[must_use]
 pub fn search<'a>(query: &str, content: &'a str, case: Case) -> Vec<&'a str> {
-    let mut found = vec![];
     match case {
         Case::Insensitive => {
             let query = query.to_lowercase();
 
-            for line in content.lines() {
-                if line.to_lowercase().contains(&query) {
-                    found.push(line);
-                }
-            }
+            content
+                .lines()
+                .filter_map(|line| {
+                    line.to_lowercase().contains(&query).then_some(line)
+                })
+                .collect::<Vec<&str>>()
         }
-        Case::Sensitive => {
-            for line in content.lines() {
-                if line.contains(query) {
-                    found.push(line);
-                }
-            }
-        }
-    };
-
-    found
+        Case::Sensitive => content
+            .lines()
+            .filter(|&line| line.contains(query))
+            .collect::<Vec<&str>>(),
+    }
 }
 
 #[must_use]
