@@ -46,26 +46,24 @@ struct Args {
 }
 
 impl Args {
-    #[must_use]
-
-    fn new<T>(args: T) -> Result<Args, &'static str>
+    fn new<T>(args: T) -> Result<Self, &'static str>
     where
         T: std::iter::Iterator<Item = String>,
     {
         Self::parse_cli(args)
     }
 
-    fn parse_cli<T>(mut args: T) -> Result<Args, &'static str>
+    fn parse_cli<T>(mut args: T) -> Result<Self, &'static str>
     where
         T: std::iter::Iterator<Item = String>,
     {
         let _program_name = args.next();
 
-        let query = args.next().ok_or_else(|| "Didn't get a query string")?;
+        let query = args.next().ok_or("Didn't get a query string")?;
 
-        let file = args.next().ok_or_else(|| "Didn't get a file path")?;
+        let file = args.next().ok_or("Didn't get a file path")?;
 
-        Ok(Args { query, file })
+        Ok(Self { query, file })
     }
 }
 

@@ -16,14 +16,12 @@ pub fn search<'a>(query: &str, content: &'a str, case: Case) -> Vec<&'a str> {
 
             content
                 .lines()
-                .filter_map(|line| {
-                    line.to_lowercase().contains(&query).then_some(line)
-                })
+                .filter(|line| line.to_lowercase().contains(&query))
                 .collect::<Vec<&str>>()
         }
         Case::Sensitive => content
             .lines()
-            .filter(|&line| line.contains(query))
+            .filter(|line| line.contains(query))
             .collect::<Vec<&str>>(),
     }
 }
