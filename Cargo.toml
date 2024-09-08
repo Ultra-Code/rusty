@@ -9,7 +9,11 @@ readme = "README"
 keywords = ["rust", "rust-book"]
 categories = ["algorithms", "command-line-interface"]
 
+[profile.dev]
+opt-level = 0
+
 [profile.release]
+opt-level = 3
 panic = 'abort'
 
 [dependencies]

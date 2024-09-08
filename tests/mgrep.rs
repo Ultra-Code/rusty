@@ -13,7 +13,7 @@ Pick three.";
 
     assert_eq!(
         vec!["safe, fast, productive."],
-        mgrep::search(query, content, mgrep::Case::Sensitive)
+        mgrep::search(query, content, book::Case::Sensitive)
     );
 }
 
@@ -28,7 +28,7 @@ Duct tape.";
 
     assert_eq!(
         vec!["safe, fast, productive."],
-        mgrep::search(query, contents, mgrep::Case::Sensitive)
+        mgrep::search(query, contents, book::Case::Sensitive)
     );
 }
 
