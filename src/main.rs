@@ -4,6 +4,8 @@
 mod algo;
 mod blocks;
 mod enums;
+mod interior_mutable_pattern;
+mod smart_pointer;
 mod structs;
 
 fn main() {
@@ -11,6 +13,7 @@ fn main() {
     blocks::use_block();
     structs::use_struct();
     enums::use_enum();
+    smart_pointer::use_pointers();
 
     let opt = Some(String::from("Hello world"));
 
