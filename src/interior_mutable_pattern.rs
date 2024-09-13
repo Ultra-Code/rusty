@@ -24,7 +24,7 @@ where
         self.value = value;
 
         #[allow(clippy::cast_precision_loss)]
-        let percentage_of_max = (self.value / self.max) as f64;
+        let percentage_of_max = self.value as f64 / self.max as f64;
 
         if percentage_of_max >= 1.0 {
             self.messenger.send("Error: You are over your quota!");
