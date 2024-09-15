@@ -1,13 +1,16 @@
+#[allow(dead_code)]
 pub trait Messenger {
     fn send(&self, msg: &str);
 }
 
+#[allow(dead_code)]
 pub struct LimitTracker<'a, T: Messenger> {
     messenger: &'a T,
     value: usize,
     max: usize,
 }
 
+#[allow(dead_code)]
 impl<'a, T> LimitTracker<'a, T>
 where
     T: Messenger,
