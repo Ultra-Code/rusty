@@ -1,5 +1,5 @@
 [package]
-name = "book"
+name = "rusty"
 version = "0.1.0"
 edition = "2021"
 description = "Learns of the rust book"

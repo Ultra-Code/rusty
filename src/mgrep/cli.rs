@@ -71,6 +71,7 @@ impl Args {
 pub fn run(case: Case) {
     let cli_args = Args::new(env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing arguments: {err}");
+        eprintln!("Example: cargo run --bin mgrep -- fn src/bin/mgrep.rs");
         process::exit(1);
     });
     println!(

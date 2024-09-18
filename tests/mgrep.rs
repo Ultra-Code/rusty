@@ -1,4 +1,4 @@
-use book::mgrep;
+use rusty::mgrep;
 
 #[test]
 fn one_result() {
@@ -13,7 +13,7 @@ Pick three.";
 
     assert_eq!(
         vec!["safe, fast, productive."],
-        mgrep::search(query, content, book::Case::Sensitive)
+        mgrep::search(query, content, rusty::Case::Sensitive)
     );
 }
 
@@ -28,7 +28,7 @@ Duct tape.";
 
     assert_eq!(
         vec!["safe, fast, productive."],
-        mgrep::search(query, contents, book::Case::Sensitive)
+        mgrep::search(query, contents, rusty::Case::Sensitive)
     );
 }
 
