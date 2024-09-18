@@ -1,4 +1,4 @@
-use book::webserver;
+use rusty::webserver;
 
 pub fn main() -> std::io::Result<()> {
     webserver::server()?;

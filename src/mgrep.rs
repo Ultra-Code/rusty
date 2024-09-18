@@ -14,8 +14,8 @@ pub enum Case {
 /// # Examples
 ///
 /// ```
-/// use book::mgrep::Case;
-/// use book::mgrep::search;
+/// use rusty::mgrep::Case;
+/// use rusty::mgrep::search;
 ///
 /// let query = "5";
 /// let content = "this is %\n5 is the number";
