@@ -1,3 +1,4 @@
+use crate::threadpool;
 use std::io::{BufRead, BufReader, Result as IoResult, Write};
 use std::net::{TcpListener, TcpStream};
 
@@ -31,12 +32,23 @@ fn handle_connection(mut stream: TcpStream) -> IoResult<()> {
     Ok(())
 }
 
+/// # Errors
+///
+/// will return `Err` if unable to bind to the port `7372` or
+/// the is an error in the stream we are listening to
+///
+/// # Panics
+///
+/// panics when there is an IO result while handling connections
 pub fn server() -> IoResult<()> {
+    let pool = threadpool::ThreadPool::new(32);
     let listener = TcpListener::bind("127.0.0.1:7372")?;
 
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         let stream = stream?;
-        handle_connection(stream)?;
+        pool.execute(|| handle_connection(stream).unwrap());
     }
+
+    println!("Shutting down.");
     Ok(())
 }
