@@ -1,0 +1,20 @@
+[package]
+name = "backy"
+description = "A backend websever in rust using actix-web"
+version = "0.1.0"
+edition = "2021"
+keywords = ["webserver", "actix-web", "backend"]
+categories = ["web-programming", "command-line-utilities"]
+repository = "https://github.com/Ultra-Code/rusty/backy"
+readme = "README.md"
+license = "MIT"
+
+[lints]
+workspace = true
+
+[dependencies]
+actix-web = { version = "4.9.0", features = [
+  "experimental-io-uring",
+  "rustls-0_23",
+] }
+serde = { version = "1.0.215", features = ["derive"] }

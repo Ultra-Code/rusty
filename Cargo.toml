@@ -1,20 +1,31 @@
-[package]
-name = "rusty"
+[workspace]
+# https://doc.rust-lang.org/cargo/reference/workspaces.html
+members = ["rusting", "backy"]
+resolver = "2"
+
+[workspace.package]
+# https://doc.rust-lang.org/cargo/reference/manifest.html
 version = "0.1.0"
+authors = ["Mega Alpha <mega.alpha100@gmail.com>"]
 edition = "2021"
-description = "Learns of the rust book"
+description = "Compilation of my rust journey and adventures"
+readme = "README.md"
+keywords = ["learning", "rust", "journey"]
+categories = ["command-line-utilities"]
 license = "MIT"
-repository = "git"
-readme = "README"
-keywords = ["rust", "rust-book"]
-categories = ["algorithms", "command-line-interface"]
 
 [profile.dev]
-opt-level = 0
+opt-level = 1
 
 [profile.release]
 opt-level = 3
 panic = 'abort'
 
-[dependencies]
-rand = "0.8.5"
+[workspace.lints.clippy]
+dbg_macro = "deny"
+todo = "deny"
+all = { level = "deny", priority = 1 }
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+multiple_crate_versions = "allow"
