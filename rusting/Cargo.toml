@@ -1,0 +1,32 @@
+[package]
+name = "rusting"
+version = "0.1.0"
+edition = "2021"
+description = "Learns of the rust book"
+license = "MIT"
+repository = "git"
+readme = "README"
+keywords = ["rust", "rust-book"]
+categories = ["algorithms", "command-line-interface"]
+
+[lib]
+name = "rusty"
+path = "lib.rs"
+
+[[bin]]
+name = "main"
+path = "main.rs"
+
+[[bin]]
+name = "guess"
+path = "bin/guess.rs"
+
+[[bin]]
+name = "mgrep"
+path = "bin/mgrep.rs"
+
+[lint]
+workspace = true
+
+[dependencies]
+rand = "0.8.5"
