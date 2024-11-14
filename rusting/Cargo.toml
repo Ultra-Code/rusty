@@ -25,7 +25,7 @@ path = "bin/guess.rs"
 name = "mgrep"
 path = "bin/mgrep.rs"
 
-[lint]
+[lints]
 workspace = true
 
 [dependencies]
