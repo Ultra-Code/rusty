@@ -1,13 +1,15 @@
+cargo-features = ["edition2024"]
+
 [package]
 name = "rusting"
-version = "0.1.0"
-edition = "2021"
 description = "Learns of the rust book"
-license = "MIT"
-repository = "git"
-readme = "README"
 keywords = ["rust", "rust-book"]
 categories = ["algorithms", "command-line-interface"]
+repository.workspace = true
+readme.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
 
 [lib]
 name = "rusty"

@@ -1,13 +1,15 @@
+cargo-features = ["edition2024"]
+
 [package]
 name = "backy"
 description = "A backend websever in rust using actix-web"
-version = "0.1.0"
-edition = "2021"
 keywords = ["webserver", "actix-web", "backend"]
 categories = ["web-programming", "command-line-utilities"]
-repository = "https://github.com/Ultra-Code/rusty/backy"
-readme = "README.md"
-license = "MIT"
+repository.workspace = true
+readme.workspace = true
+version.workspace = true
+edition.workspace = true
+license.workspace = true
 
 [lints]
 workspace = true

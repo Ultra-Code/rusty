@@ -36,7 +36,7 @@ fn first_word(s: &str) -> &str {
         // .filter(|(_index, &byte)| byte == b' ')
         // .take(1)
         // .next()
-        .find(|(_index, &byte)| byte == b' ')
+        .find(|&(ref _index, &byte)| byte == b' ')
         .unwrap_or((s.len(), &(0x0_u8)))
         .0;
 

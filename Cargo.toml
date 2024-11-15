@@ -7,11 +7,12 @@ resolver = "2"
 # https://doc.rust-lang.org/cargo/reference/manifest.html
 version = "0.1.0"
 authors = ["Mega Alpha <mega.alpha100@gmail.com>"]
-edition = "2021"
+edition = "2024"
+repository = "https://github.com/Ultra-Code/rusty"
 description = "Compilation of my rust journey and adventures"
-readme = "README.md"
 keywords = ["learning", "rust", "journey"]
 categories = ["command-line-utilities"]
+readme = "README.md"
 license = "MIT"
 
 [profile.dev]

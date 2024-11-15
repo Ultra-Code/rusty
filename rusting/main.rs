@@ -25,7 +25,7 @@ fn main() {
 
     match &opt {
         // _ became s
-        Some(ref s) => println!("Some: {s}"),
+        Some(s) => println!("Some: {s}"),
         None => println!("None!"),
     };
 
