@@ -15,8 +15,10 @@ license.workspace = true
 workspace = true
 
 [dependencies]
+actix-files = { version = "0.6.6", features = ["experimental-io-uring"] }
 actix-web = { version = "4.9.0", features = [
   "experimental-io-uring",
   "rustls-0_23",
 ] }
 serde = { version = "1.0.215", features = ["derive"] }
+serde_json = "1.0.132"

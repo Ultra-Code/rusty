@@ -1,13 +1,15 @@
+mod custom_response;
+mod tls;
 use actix_web::{
-    error, get, guard, http, post, web, App, HttpResponse, HttpServer,
-    Responder, Result,
+    App, HttpResponse, HttpServer, Responder, Result, error, get, guard, http,
+    post, web,
 };
 use serde::Deserialize;
 use std::cell::Cell;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering;
-use std::sync::Arc;
-use std::sync::RwLock;
+use std::sync::{
+    Arc, RwLock,
+    atomic::{AtomicUsize, Ordering},
+};
 
 // state is accessible as a read-only reference. If you need mutable
 // access to state, you must use interior mutable pattern .ie Cell, RefCell
@@ -163,7 +165,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .configure(config)
             .service(index)
-            .service(web::scope("/").app_data(json_config).service(submit))
+            .service(web::scope("").service(submit).app_data(json_config))
             .app_data(data.clone())
             .service(path_extractor)
             .service(
