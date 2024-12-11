@@ -20,5 +20,8 @@ actix-web = { version = "4.9.0", features = [
   "experimental-io-uring",
   "rustls-0_23",
 ] }
+derive_more = { version = "1.0.0", features = ["display", "error"] }
+env_logger = "0.11.5"
+log = "0.4.22"
 serde = { version = "1.0.215", features = ["derive"] }
 serde_json = "1.0.132"
