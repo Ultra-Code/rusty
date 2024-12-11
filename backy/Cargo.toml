@@ -1,5 +1,3 @@
-cargo-features = ["edition2024"]
-
 [package]
 name = "backy"
 description = "A backend websever in rust using actix-web"

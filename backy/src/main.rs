@@ -1,8 +1,8 @@
 mod custom_response;
-mod tls;
+mod errors;
 use actix_web::{
     App, HttpResponse, HttpServer, Responder, Result, error, get, guard, http,
-    post, web,
+    middleware::Logger, post, web,
 };
 use serde::Deserialize;
 use std::cell::Cell;
@@ -99,6 +99,23 @@ fn config(cfg: &mut web::ServiceConfig) {
     );
 }
 
+fn config_submit_json(cfg: &mut web::ServiceConfig) {
+    // limits the size of the payload to 4kb and uses a custom error handler
+    let json_config =
+        web::JsonConfig::default()
+            .limit(4096)
+            .error_handler(|err, _req| {
+                // create custom error response
+                error::InternalError::from_response(
+                    err,
+                    HttpResponse::Conflict().finish(),
+                )
+                .into()
+            });
+
+    cfg.app_data(json_config).service(submit);
+}
+
 #[derive(Deserialize)]
 struct UserInfo {
     user_id: u32,
@@ -136,6 +153,13 @@ async fn query_params(info: web::Query<UserInfo>) -> String {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    use log::debug;
+    unsafe {
+        std::env::set_var("RUST_LOG", "info,backy=debug,backy::errors=error");
+        std::env::set_var("RUST_BACKTRACE", "1");
+    }
+    env_logger::init();
+    debug!("In main, starting backy server");
     // To share data across new App instances constructed by HttpServer
     // for each thread the data must exist outside of HttpServer
     // else a new copy of the data would be created for each App instance
@@ -150,22 +174,13 @@ async fn main() -> std::io::Result<()> {
     };
 
     HttpServer::new(move || {
-        // limits the size of the payload to 4kb and uses a custom error handler
-        let json_config = web::JsonConfig::default().limit(4096).error_handler(
-            |err, _req| {
-                // create custom error response
-                error::InternalError::from_response(
-                    err,
-                    HttpResponse::Conflict().finish(),
-                )
-                .into()
-            },
-        );
+        let logger = Logger::default();
 
         App::new()
+            .wrap(logger) // register logger middleware
             .configure(config)
+            .configure(config_submit_json)
             .service(index)
-            .service(web::scope("").service(submit).app_data(json_config))
             .app_data(data.clone())
             .service(path_extractor)
             .service(
@@ -194,6 +209,8 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .service(count)
             .service(query_params)
+            .service(errors::index)
+            .service(errors::helper)
             .route("/hey", web::get().to(manual_hello))
     })
     .keep_alive(http::KeepAlive::Os)
