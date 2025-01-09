@@ -94,6 +94,7 @@ fn scoped_config(cfg: &mut web::ServiceConfig) {
 fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::resource("/app")
+            .name("app_config")
             .route(web::get().to(|| async { HttpResponse::Ok().body("app") }))
             .route(web::head().to(HttpResponse::MethodNotAllowed)),
     );
@@ -153,12 +154,15 @@ async fn query_params(info: web::Query<UserInfo>) -> String {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    use env_logger::Env;
     use log::debug;
-    unsafe {
-        std::env::set_var("RUST_LOG", "info,backy=debug,backy::errors=error");
-        std::env::set_var("RUST_BACKTRACE", "1");
-    }
-    env_logger::init();
+
+    let env = Env::default()
+        .filter_or("RUST_LOG", "info,backy=debug,backy::errors=error")
+        .write_style_or("RUST_LOG_STYLE", "always");
+
+    env_logger::init_from_env(env);
+
     debug!("In main, starting backy server");
     // To share data across new App instances constructed by HttpServer
     // for each thread the data must exist outside of HttpServer
@@ -198,12 +202,11 @@ async fn main() -> std::io::Result<()> {
                     ),
             )
             .service(
-                web::scope("/guard")
-                    .guard(guard::Host("users.rust-lang.com"))
-                    .route(
-                        "",
-                        web::to(|| async { HttpResponse::Ok().body("user") }),
-                    ),
+                web::resource("/user/{name}")
+                    .name("user_detail")
+                    .guard(guard::Header("content-type", "application/json"))
+                    .route(web::get().to(HttpResponse::Ok))
+                    .route(web::put().to(HttpResponse::Ok)),
             )
             .service(web::scope("/api").configure(scoped_config))
             .service(echo)
