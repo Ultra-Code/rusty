@@ -2,7 +2,7 @@ mod custom_response;
 mod errors;
 use actix_web::{
     App, HttpResponse, HttpServer, Responder, Result, error, get, guard, http,
-    middleware::Logger, post, web,
+    middleware, post, web,
 };
 use serde::Deserialize;
 use std::cell::Cell;
@@ -178,10 +178,15 @@ async fn main() -> std::io::Result<()> {
     };
 
     HttpServer::new(move || {
-        let logger = Logger::default();
+        let logger = middleware::Logger::default();
 
         App::new()
             .wrap(logger) // register logger middleware
+            .wrap(middleware::NormalizePath::new(
+                middleware::TrailingSlash::Trim,
+            ))
+            // INFO: idea about how to configure compression https://github.com/actix/actix-web/pull/3189/files
+            .wrap(middleware::Compress::default())
             .configure(config)
             .configure(config_submit_json)
             .service(index)
