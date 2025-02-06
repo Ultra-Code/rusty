@@ -25,6 +25,10 @@ path = "bin/guess.rs"
 name = "mgrep"
 path = "bin/mgrep.rs"
 
+[[bin]]
+name = "webserver"
+path = "bin/webserver.rs"
+
 [lints]
 workspace = true
 
